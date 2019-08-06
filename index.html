@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Who Dun It?</title>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+
+
+
+<div id="game-board">
+
+	
+	<div class="room" id="Kitchen">Kitchen</div>
+	<div class="room" id="Ballroom">Ballroom</div>
+	<div class="room" id="Conservatory">Conservatory</div>
+	<div class="room" id="dining-room">Dining Room</div>
+	<div class="room" id="cellar">Start
+			<br>
+			<img id="game-piece" src="./images/cluepiece-blue.jpg">
+	</div>
+	<div class="room" id="billiard-room">Billiard Room</div>
+	<div class="room" id="Library">Library</div>
+	<div id="counter"></div>
+	<div class="room" id="Lounge">Lounge</div>
+	<div class="room" id="Hall">Hall</div>
+	<div class="room" id="Study">Study</div>
+
+
+</div>
+
+<div id="start-div">
+<button id="start">Let's Get It Started</button>
+</div>
+
+<div id="suggest-div">
+	<form id="suggest">
+		I suggest it was
+		<select id="suggested-suspect">
+		  <option value="Miss Scarlet">Miss Scarlet</option>
+		  <option value="Mr. Green">Mr. Green</option>
+		  <option value="Colonel Mustard">Colonel Mustard</option>
+		  <option value="Professor Plum">Professor Plum</option>
+		  <option value="Mrs. Peacock">Mrs. Peacock</option>
+		  <option value="Mrs. White">Mrs. White</option>
+		</select>
+
+		in the
+
+		<span id="suggested-room">
+		    <!-- <option value="Kitchen">Kitchen</option>
+			<option value="Ballroom">Ballroom</option>
+			<option value="Conservatory">Conservatory</option>
+			<option value="Dining Room">Dining Room</option>
+			<option value="Billiard Room">Billiard Room</option>
+			<option value="Library">Libray</option>
+			<option value="Lounge">Lounge</option>
+			<option value="Hall">Hall</option>
+			<option value="Study">Study</option> -->
+
+		</span>
+		with the
+		<select id="suggested-weapon">
+		  <option value="Candlestick">Candlestick</option>
+		  <option value="Knife">Knife</option>
+		  <option value="Lead Pipe">Lead Pipe</option>
+		  <option value="Revolver">Revolver</option>
+		  <option value="Rope">Rope</option>
+		  <option value="Monkey Wrench">Monkey Wrench</option>
+		</select>
+
+		<input id="suggested" type="submit">
+
+	</form>
+</div>
+
+	<div id="accuse-div">
+		<form id="accuse">
+			It was
+			<select id="accused-suspect">
+			  <option value="Miss Scarlet">Miss Scarlet</option>
+			  <option value="Mr. Green">Mr. Green</option>
+			  <option value="Colonel Mustard">Colonel Mustard</option>
+			  <option value="Professor Plum">Professor Plum</option>
+			  <option value="Mrs. Peacock">Mrs. Peacock</option>
+			  <option value="Mrs. White">Mrs. White</option>
+			</select>
+
+			in the
+
+			<select id="accused-room">
+			    <option value="Kitchen">Kitchen</option>
+				<option value="Ballroom">Ballroom</option>
+				<option value="Conservatory">Conservatory</option>
+				<option value="Dining Room">Dining Room</option>
+				<option value="Billiard Room">Billiard Room</option>
+				<option value="Library">Library</option>
+				<option value="Lounge">Lounge</option>
+				<option value="Hall">Hall</option>
+				<option value="Study">Study</option>
+			</select>
+			with the
+			<select id="accused-weapon">
+			  <option value="Candlestick">Candlestick</option>
+			  <option value="Knife">Knife</option>
+			  <option value="Pipe">Lead Pipe</option>
+			  <option value="Revolver">Revolver</option>
+			  <option value="Rope">Rope</option>
+			  <option value="Monkey Wrench">Monkey Wrench</option>
+			</select>!!
+
+			<input id="jacuse" type="submit">
+
+		</form>
+	</div>
+	<div id="move-options-div"></div>
+
+	<div id="clue-div"></div>
+
+	<aside>
+	<form id="cheat-sheet">
+		<input type="radio" name="Scarlet">Miss Scarlet
+		<input type="radio" name="Green">Mr. Green
+		<input type="radio" name="Mustard">Colonel Mustard
+		<input type="radio" name="Plum">Professor Plum
+		<input type="radio" name="Peacock">Mrs. Peacock
+		<input type="radio" name="White">Mrs. White
+		
+		<br>
+		<br>
+
+		<input type="radio" name="Dining Room">Dining Room
+		<input type="radio" name="Kitchen">Kitchen
+		<input type="radio" name="Ballroom">BallRoom
+		<input type="radio" name="Conservatory">Conservatory
+		<input type="radio" name="Billiard Room">Billiard Room
+		<input type="radio" name="Library">Library
+		<input type="radio" name="Lounge">Lounge
+		<input type="radio" name="Study">Study
+		<input type="radio" name="Hall">Hall
+
+		<br>
+		<br>
+
+
+		<input type="radio" name="Candlestick">Candlestick
+		<input type="radio" name="Knife">Knife
+		<input type="radio" name="Lead Pipe">Lead Pipe
+		<input type="radio" name="Revolver">Revolver
+		<input type="radio" name="Rope">Rope
+		<input type="radio" name="Monkey Wrench">Monkey Wrench
+
+
+
+	</form>
+	</aside>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="./js/app.js"></script>
+</body>
+</html>

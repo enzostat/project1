@@ -1,0 +1,126 @@
+div {
+	border: 2px solid black;
+	font-size: 20px;
+
+}
+
+
+
+#game-board {
+	background-color: darkgreen;
+	text-align: center;
+	display: grid;
+	grid-template-rows: 2fr 1fr 1fr 2fr;
+	grid-template-columns: 1fr 1fr 1fr;
+	/*grid-template-areas: 
+		"kitchen ballroom conservatory"
+		"dining-room start billiard-room"
+		"dining-room start library"
+		"lounge hall study";*/
+	align-items: center;
+	justify-content: space-between;
+	grid-gap: 20px;
+	height: 800px;
+	width: 800px;
+}
+
+.room {
+	
+	padding: 10px;
+	height: 150px;
+	width: 150px;
+}
+
+#Kitchen {
+	/*grid-area: "kitchen";*/
+	grid-column: 1;
+	grid-row: 1;
+}
+
+
+#Ballroom {
+	/*grid-area: "ballroom";*/
+	grid-row: 1;
+	grid-column: 2;
+}
+
+#Conservatory {
+	/*grid-area: "conservatory";*/
+	grid-row: 1;
+	grid-column: 3;
+}
+
+#dining-room {
+	grid-area: "dining-room";
+	grid-row: 2 / 3;
+	grid-column: 1;
+	/*height: 300px;*/
+	/*width: 300px;*/
+}
+
+#billiard-room {
+	/*grid-area: "billiard-room";*/
+	grid-column: 3;
+	grid-row: 2;
+}
+
+#Library {
+	/*grid-area: "library";*/
+	grid-column: 3;
+	grid-row: 3;
+}
+
+#Lounge {
+	/*grid-area: "lounge";*/
+	grid-row: 4;
+	grid-column: 1;
+}
+
+#Hall {
+	/*grid-area: "hall";*/
+	grid-row: 4;
+	grid-column: 2;
+}
+
+
+#Study {
+	/*grid-area: "study";*/
+	grid-column: 3;
+	grid-row: 4;
+}
+
+#cellar {
+	grid-area: "start";
+	grid-row: 2 / 3;
+	grid-column: 2 
+	/*height: 300px;*/
+	/*width: 300px;*/
+}
+
+img {
+	height: 75px;
+	width: auto;
+
+}
+
+#cheat-sheet {
+	
+	/*float: right;
+	position: absolute;*/
+}
+
+#counter {
+	grid-row: 3;
+	grid-column: 2;
+	background-color: red;
+	font-size: 20px;
+	font-weight: bold;
+	height: 100px;
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+
+
