@@ -385,12 +385,13 @@ function endGame() {
 }
 
 function moveOptions() {
-	var i = 0
+	
+	//finds the game piece on the board
 	var x = document.getElementById("game-piece").parentNode;
 	
 	
 
-	
+	//determines move options based on current location of the game-piece
 	if (x.id == "cellar") {
 		cellarMoves.forEach(createHighlights)
 	} else if (x.id == "Kitchen") {
@@ -412,7 +413,7 @@ function moveOptions() {
 	}  else if (x.id == "Library") {
 		fromLibrary.forEach(createHighlights)
 	} else {
-		console.log("Get fucked");
+		console.log("Something went very wrong");
 	}
 
 
