@@ -1,15 +1,16 @@
 
 $("#suggest-div").hide();
 $("#accuse-div").hide();
+$("#play-again").hide();
 
 
 
 
 
 // <-----Variables and Constants -------->
-const suspects = ["Miss Scarlet", "Mr. Green", "Colonel Mustard", "Professor Plum", "Mrs. Peacock", "Mrs. White"];
-const weapons = ["Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Monkey Wrench"];
-const rooms = ["Kitchen", "Ballroom", "Conservatory", "Dining Room", "Billiard Room", "Library", "Lounge", "Hall", "Study"];
+var suspects = ["Miss Scarlet", "Mr. Green", "Colonel Mustard", "Professor Plum", "Mrs. Peacock", "Mrs. White"];
+var weapons = ["Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Monkey Wrench"];
+var rooms = ["Kitchen", "Ballroom", "Conservatory", "Dining Room", "Billiard Room", "Library", "Lounge", "Hall", "Study"];
 var correctAnswers = {
 	suspect: " ",
 	weapon: " ",
@@ -66,9 +67,12 @@ document.getElementById("hard-mode").addEventListener("click", function() {
 
 //starts the game
 function startGame() {
+	countDown = 10;
+	counter.textContent = changeCounter();
 	hideStartButtons();
 	randomizedMurder();
 	giveClues();
+	$("#play-again").hide();
 
 	//gives you options to move the player piece
 	moveOptions();
@@ -102,6 +106,7 @@ function startGameEasy() {
 	hideStartButtons();
 	randomizedMurder();
 	giveCluesEasy();
+	$("#play-again").hide();
 	
 
 	//gives you options to move the player piece
@@ -135,6 +140,7 @@ function startGameHard() {
 	counter.textContent = changeCounter();
 	hideStartButtons();
 	randomizedMurder();
+	$("#play-again").hide();
 	
 	
 	//print that no clues are given
@@ -143,11 +149,6 @@ function startGameHard() {
 
 	//gives you options to move the player piece
 	moveOptions();
-
-	//shows the suggestion and accuse options 
-	// $("#suggest-div").show();
-	// $("#accuse-div").show();
-
 
 
 	//event listener for accusations
@@ -227,7 +228,7 @@ function giveCluesEasy() {
 
 	//prints out clues in clue-div
 	var clueMessage = document.createElement("p");
-	clueMessage.textContent = `${clues.suspects[0]} and ${clues.suspects[1]} are innocent! The murder didn't happen in the ${clues.rooms[0]} or the ${clues.rooms[1]}. And neither the ${clues.weapons[0]} nor the ${clues.weapons[1]} wasn't used!`;
+	clueMessage.textContent = `${clues.suspects[0]} and ${clues.suspects[1]} are innocent! The murder didn't happen in the ${clues.rooms[0]} or the ${clues.rooms[1]}. And neither the ${clues.weapons[0]} nor the ${clues.weapons[1]} were used!`;
 
 
 	document.getElementById("clue-div").append(clueMessage);
@@ -308,6 +309,7 @@ function checkSuggestion() {
 	//increases the turncount
 	turnCount++;
 	counter.textContent = changeCounter();
+	console.log(turnCount);
 	
 	
 
@@ -316,7 +318,7 @@ function checkSuggestion() {
 	if (turnCount >= countDown) {
 		forceAccusation();
 	} else {
-		console.log(`You have ${10-turnCount} turns left`)
+		
 		moveOptions();
 	}
 }
@@ -360,17 +362,24 @@ function loseGame() {
 function endGame() {
 	
 
+
 	//remove all event listeners
 	removeMovementListeners();
 	revertToNormal();
 
 	$("#accuse-div").hide();
+	$("#suggest-div").hide();
 
 	//empty the div
 	$("#clue-div").empty();
 
 
-	//maybe create a play again button?
+	//create a play again button
+	$("#play-again").show();
+	document.getElementById("play-again").addEventListener("click", function() {
+		restartGame();
+		
+	});
 }
 
 function moveOptions() {
@@ -445,7 +454,7 @@ function moveMyPiece (e) {
 	movePiece(e.target);
 	removeMovementListeners();
 	revertToNormal();
-	if (turnCount >= 10) {
+	if (turnCount >= countDown) {
 		// console.log("Forced accusation")
 	} else {
 	$("#suggest-div").show();
@@ -505,6 +514,8 @@ function createHighlights(element) {
 
 
 function restartGame() {
+	
+
 	suspects = ["Miss Scarlet", "Mr. Green", "Colonel Mustard", "Professor Plum", "Mrs. Peacock", "Mrs. White"];
 	weapons = ["Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Monkey Wrench"];
 	rooms = ["Kitchen", "Ballroom", "Conservatory", "Dining Room", "Billiard Room", "Library", "Lounge", "Hall", "Study"];
@@ -522,13 +533,41 @@ function restartGame() {
 
 	$("#clue-div").empty();
 	$("#start").show();
+	$("#easy-mode").show();
+	$("#hard-mode").show();
 
-	$('#cheat-sheet input[type="radio":checked]').each(function(){
-      $(this).prop('checked', false); 
-  	});
+	// $('#cheat-sheet input[type="radio":checked]').each(function(){
+ //      $(this).prop('checked', false); 
+ //  	});
+ 	$('input[name=Scarlet]').prop('checked',false);
+ 	$('input[name=Green]').prop('checked',false);
+ 	$('input[name=Mustard]').prop('checked',false);
+ 	$('input[name=Plum]').prop('checked',false);
+ 	$('input[name=Peacock]').prop('checked',false);
+ 	$('input[name=White]').prop('checked',false);
+
+
+ 	$('input[name=Dining]').prop('checked',false);
+ 	$('input[name=Kitchen]').prop('checked',false);
+ 	$('input[name=Ballroom]').prop('checked',false);
+ 	$('input[name=Conservatory]').prop('checked',false);
+ 	$('input[name=Billiard]').prop('checked',false);
+ 	$('input[name=Library]').prop('checked',false);
+ 	$('input[name=Study]').prop('checked',false);
+ 	$('input[name=Hall]').prop('checked',false);
+ 	$('input[name=Lounge]').prop('checked',false);
+
+
+ 	$('input[name=Candlestick]').prop('checked',false);
+ 	$('input[name=Knife]').prop('checked',false);
+ 	$('input[name=Wrench]').prop('checked',false);
+ 	$('input[name=Revolver]').prop('checked',false);
+ 	$('input[name=Rope]').prop('checked',false);
+ 	$('input[name=Pipe]').prop('checked',false);
 
   	var returnToStart = document.getElementById("game-piece")
   	document.getElementById("cellar").append(returnToStart);
+  	$("#play-again").hide();
 
 }
 
