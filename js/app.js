@@ -206,7 +206,7 @@ function randomizedMurder(){
 		correctAnswers.room = rooms.shift();
 		correctAnswers.suspect = suspects.shift();
 	}
-	console.log(correctAnswers);
+	
 }
 
 //randomizes the array so that .pop doesn't take the same element every time
@@ -321,7 +321,7 @@ function checkSuggestion() {
 	//increases the turncount
 	turnCount++;
 	counter.textContent = changeCounter();
-	console.log(turnCount);
+	
 	
 	
 
