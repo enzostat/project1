@@ -40,6 +40,18 @@ var countDown = 10;
 var counter = document.getElementById("counter")
 counter.textContent = countDown;
 
+var accuse_Listener = function () {
+		event.preventDefault();
+		checkAccusation();
+}
+
+var suggest_Listener = function() {
+	event.preventDefault();
+	checkSuggestion();
+	$("#suggest-div").hide();
+	$("#accuse-div").hide();
+}
+
 
 
 // <-------- Event Listeners ----------->
@@ -91,12 +103,12 @@ function startGame() {
 	})
 
 //event listener for suggestions
-	document.getElementById("suggest").addEventListener("submit", function(e) {
-		e.preventDefault();
-		checkSuggestion();
-		$("#suggest-div").hide();
-		$("#accuse-div").hide();
-	})
+	document.getElementById("suggest").addEventListener("submit", suggest_Listener) //function(e) {
+	// 	e.preventDefault();
+	// 	checkSuggestion();
+	// 	$("#suggest-div").hide();
+	// 	$("#accuse-div").hide();
+	// })
 }
 
 function startGameEasy() {
@@ -194,7 +206,7 @@ function randomizedMurder(){
 		correctAnswers.room = rooms.shift();
 		correctAnswers.suspect = suspects.shift();
 	}
-	// console.log(correctAnswers);
+	console.log(correctAnswers);
 }
 
 //randomizes the array so that .pop doesn't take the same element every time
@@ -535,6 +547,8 @@ function restartGame() {
 	$("#start").show();
 	$("#easy-mode").show();
 	$("#hard-mode").show();
+
+	document.getElementById("suggest").removeEventListener("submit", suggest_Listener)
 
 	// $('#cheat-sheet input[type="radio":checked]').each(function(){
  //      $(this).prop('checked', false); 
