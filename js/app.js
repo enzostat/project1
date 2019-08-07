@@ -179,7 +179,7 @@ function randomizedMurder(){
 
 	var coin = 0;
 	coin = coinFlip(2);
-	// console.log(coin);
+	
 
 	//this determines if I sort the arrays again or not, adding complexity to the randomization
 	//additionally, popping and shifting the correct answers out of the arrays makes verifying the accusations easier
@@ -452,12 +452,12 @@ function revertToNormal() {
 
 
 function moveMyPiece (e) {
-	// console.log("click", e.target);
+	
 	movePiece(e.target);
 	removeMovementListeners();
 	revertToNormal();
 	if (turnCount >= countDown) {
-		// console.log("Forced accusation")
+		
 	} else {
 	$("#suggest-div").show();
 	$("#accuse-div").show();
