@@ -98,9 +98,7 @@ function startGame() {
 	//gives you options to move the player piece
 	moveOptions();
 
-	//shows the suggestion and accuse options 
-	// $("#suggest-div").show();
-	// $("#accuse-div").show();
+	
 
 
 
@@ -113,11 +111,7 @@ function startGame() {
 
 //event listener for suggestions
 	document.getElementById("suggest").addEventListener("submit", suggest_Listener) //function(e) {
-	// 	e.preventDefault();
-	// 	checkSuggestion();
-	// 	$("#suggest-div").hide();
-	// 	$("#accuse-div").hide();
-	// })
+	
 }
 
 function startGameEasy() {
@@ -133,9 +127,6 @@ function startGameEasy() {
 	//gives you options to move the player piece
 	moveOptions();
 
-	//shows the suggestion and accuse options 
-	// $("#suggest-div").show();
-	// $("#accuse-div").show();
 
 
 
@@ -147,12 +138,7 @@ function startGameEasy() {
 	})
 
 //event listener for suggestions
-	document.getElementById("suggest").addEventListener("submit", function(e) {
-		e.preventDefault();
-		checkSuggestion();
-		$("#suggest-div").hide();
-		$("#accuse-div").hide();
-	})
+	document.getElementById("suggest").addEventListener("submit", suggest_Listener)
 
 }
 
@@ -180,12 +166,7 @@ function startGameHard() {
 	})
 
 //event listener for suggestions
-	document.getElementById("suggest").addEventListener("submit", function(e) {
-		e.preventDefault();
-		checkSuggestion();
-		$("#suggest-div").hide();
-		$("#accuse-div").hide();
-	})
+	document.getElementById("suggest").addEventListener("submit", suggest_Listener)
 }
 
 
