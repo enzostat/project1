@@ -179,7 +179,7 @@ function checkSuggestion() {
 	
 	$("#clue-div").empty();
 
-	//
+	//spits out a clue based on your suggestions
 	if (suggestedWeapon == correctAnswers.weapon && suggestedSuspect == correctAnswers.suspect && suggestedRoom == correctAnswers.room) {
 		console.log("There's not much I can tell you");
 		clueMessage.textContent = "There is not much I can tell you";
@@ -211,37 +211,37 @@ function checkSuggestion() {
 	} else if (suggestedWeapon == correctAnswers.weapon) {
 		coin = coinFlip(2);
 			if (coin === 1) {
-				console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
+				// console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
 				clueMessage.textContent = `I can only tell you this: ${suggestedSuspect} is innocent!`;
 				document.getElementById("clue-div").append(clueMessage);
 			} else {
-				console.log(`I can only tell you this: It didn't happen in the ${suggestedRoom}`);
+				// console.log(`I can only tell you this: It didn't happen in the ${suggestedRoom}`);
 				clueMessage.textContent = `I can only tell you this: It didn't happen in the ${suggestedRoom}`;
 				document.getElementById("clue-div").append(clueMessage);
 			}
 	} else if (suggestedRoom == correctAnswers.room){
 		coin = coinFlip(2);
 		if (coin === 1) {
-				console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
+				// console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
 				clueMessage.textContent = `I can only tell you this: ${suggestedSuspect} is innocent!`;
 				document.getElementById("clue-div").append(clueMessage);
 			} else {
-				console.log(`I can only tell you this: I don't think it was the ${suggestedWeapon}`);
+				// console.log(`I can only tell you this: I don't think it was the ${suggestedWeapon}`);
 				clueMessage.textContent = `I can only tell you this: I don't think it was the ${suggestedWeapon}`;
 				document.getElementById("clue-div").append(clueMessage);
 			}
 	} else {
 		coin = coinFlip(3);
 		if (coin === 2) {
-				console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
+				// console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
 				clueMessage.textContent = `I can only tell you this: ${suggestedSuspect} is innocent!`;
 				document.getElementById("clue-div").append(clueMessage);
 			} else if (coin === 1) {
-				console.log(`I can only tell you this: I don't think it was the ${suggestedWeapon}`);
+				// console.log(`I can only tell you this: I don't think it was the ${suggestedWeapon}`);
 				clueMessage.textContent = `I can only tell you this: I don't think it was the ${suggestedWeapon}`;
 				document.getElementById("clue-div").append(clueMessage);
 			} else {
-				console.log(`I can only tell you this: It didn't happen in the ${suggestedRoom}`);
+				// console.log(`I can only tell you this: It didn't happen in the ${suggestedRoom}`);
 				clueMessage.textContent = `I can only tell you this: It didn't happen in the ${suggestedRoom}`;
 				document.getElementById("clue-div").append(clueMessage);
 			}
@@ -251,7 +251,7 @@ function checkSuggestion() {
 	turnCount++;
 	counter.textContent = changeCounter();
 	
-	moveOptions();
+	// moveOptions();
 
 
 	//if you run out of guesses, you are forced to make an accusation
@@ -259,6 +259,7 @@ function checkSuggestion() {
 		forceAccusation();
 	} else {
 		console.log(`You have ${10-turnCount} turns left`)
+		moveOptions();
 	}
 }
 
@@ -294,7 +295,8 @@ function loseGame() {
 	console.log("You're a loser");
 	endGame();
 	var loseMessage = document.getElementById("clue-div");
-	loseMessage.textContent = "I'm sorry, your accusation was incorrect. You failed to solve the mystery, and you will never be invited to a dinner party again. Maybe that's for the best."
+	loseMessage.textContent = `I'm sorry, your accusation was incorrect. You failed to solve the mystery, and you will never be invited to a dinner party again. Maybe that's for the best.
+	It was ${correctAnswers.suspect} in the ${correctAnswers.room} with the ${correctAnswers.weapon}.`
 
 }
 
@@ -412,6 +414,7 @@ function movePiece(element) {
 	
 	var location = document.getElementById("game-piece");
 	document.getElementById(element.id).append(location);
+
 	
 	removeMovementListeners("click", movePiece);
 	changeRoomName();

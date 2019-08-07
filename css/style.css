@@ -1,13 +1,26 @@
+body {
+	/*background-image: url(../images/wood-panel.jpeg);*/
+	/*background: linear-gradient(#009acd, #00bfff);*/
+	font-family: 'Lato', sans-serif;
+	background-color: #f0e68c;
+
+}
+
 div {
-	border: 2px solid black;
+	/*border: 2px solid black;*/
 	font-size: 20px;
+	border-radius: 7px;
 
 }
 
 
 
 #game-board {
-	background-color: darkgreen;
+	/*background: linear-gradient(#009acd, #00bfff);*/
+	border: 2px solid black;
+
+	/*background-color: #f0e68c;*/
+	background-color: #8f7a66;
 	text-align: center;
 	display: grid;
 	grid-template-rows: 2fr 1fr 1fr 2fr;
@@ -17,67 +30,80 @@ div {
 		"dining-room start billiard-room"
 		"dining-room start library"
 		"lounge hall study";*/
-	align-items: center;
+	align-content: center;
 	justify-content: space-between;
+	align-items: center;
 	grid-gap: 20px;
 	height: 800px;
 	width: 800px;
 }
 
 .room {
-	
-	padding: 10px;
+	border: 2px solid black;
+	padding-left: 10px;
 	height: 150px;
 	width: 150px;
 }
 
 #Kitchen {
 	/*grid-area: "kitchen";*/
+	background-image: url(../images/kitchen.jpeg);
 	grid-column: 1;
 	grid-row: 1;
+	padding-left: 10px
 }
 
 
 #Ballroom {
 	/*grid-area: "ballroom";*/
+	background-image: url(../images/ballroom.jpeg);
 	grid-row: 1;
 	grid-column: 2;
 }
 
 #Conservatory {
 	/*grid-area: "conservatory";*/
+	background-image: url(../images/conservatory.jpeg);
 	grid-row: 1;
 	grid-column: 3;
+	font-weight: bold;
 }
 
 #dining-room {
-	grid-area: "dining-room";
+	/*grid-area: "dining-room";*/
+	background-image: url(../images/diningroom.jpeg);
 	grid-row: 2 / 3;
 	grid-column: 1;
+	padding-left: 10px;
 	/*height: 300px;*/
 	/*width: 300px;*/
 }
 
 #billiard-room {
 	/*grid-area: "billiard-room";*/
+	background-image: url(../images/billiardroom.jpeg);
 	grid-column: 3;
 	grid-row: 2;
 }
 
 #Library {
 	/*grid-area: "library";*/
+	background-image: url(../images/library.jpeg);
 	grid-column: 3;
 	grid-row: 3;
 }
 
 #Lounge {
 	/*grid-area: "lounge";*/
+	background-image: url(../images/lounge.jpeg);
 	grid-row: 4;
 	grid-column: 1;
+	padding-left: 10px;
 }
 
 #Hall {
 	/*grid-area: "hall";*/
+	background-image: url(../images/hall.jpeg);
 	grid-row: 4;
 	grid-column: 2;
 }
@@ -85,12 +111,14 @@ div {
 
 #Study {
 	/*grid-area: "study";*/
+	background-image: url(../images/study.jpeg);
 	grid-column: 3;
 	grid-row: 4;
 }
 
 #cellar {
-	grid-area: "start";
+	/*grid-area: "start";*/
+	background-image: url(../images/cellar.jpeg);
 	grid-row: 2 / 3;
 	grid-column: 2 
 	/*height: 300px;*/
@@ -100,6 +128,7 @@ div {
 img {
 	height: 75px;
 	width: auto;
+	background: #00bfff;
 
 }
 
@@ -119,7 +148,20 @@ img {
 	width: 100px;
 	display: flex;
 	justify-content: center;
-	align-content: center;
+	align-items: center;
+	border: 2px solid black;
+}
+
+button {
+	font-size: 14px;
+	background-color: white;
+	padding: 14px;
+	border: 5px solid #4caf50;
+	border-radius: 6px;
+	/*border-color: #4caf50;*/
+	color:  #4caf50;
+	margin: 10px;
+
 }
 
 
