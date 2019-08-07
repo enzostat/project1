@@ -1,13 +1,12 @@
 body {
-	/*background-image: url(../images/wood-panel.jpeg);*/
-	/*background: linear-gradient(#009acd, #00bfff);*/
+	
 	font-family: 'Lato', sans-serif;
 	background-color: #f0e68c;
 
 }
 
 div {
-	/*border: 2px solid black;*/
+	
 	font-size: 20px;
 	border-radius: 7px;
 
@@ -16,20 +15,13 @@ div {
 
 
 #game-board {
-	/*background: linear-gradient(#009acd, #00bfff);*/
+	
 	border: 2px solid black;
-
-	/*background-color: #f0e68c;*/
 	background-color: #8f7a66;
 	text-align: center;
 	display: grid;
 	grid-template-rows: 2fr 1fr 1fr 2fr;
 	grid-template-columns: 1fr 1fr 1fr;
-	/*grid-template-areas: 
-		"kitchen ballroom conservatory"
-		"dining-room start billiard-room"
-		"dining-room start library"
-		"lounge hall study";*/
 	align-content: center;
 	justify-content: space-between;
 	align-items: center;
@@ -46,7 +38,7 @@ div {
 }
 
 #Kitchen {
-	/*grid-area: "kitchen";*/
+	
 	background-image: url(../images/kitchen.jpeg);
 	grid-column: 1;
 	grid-row: 1;
@@ -55,14 +47,14 @@ div {
 
 
 #Ballroom {
-	/*grid-area: "ballroom";*/
+	
 	background-image: url(../images/ballroom.jpeg);
 	grid-row: 1;
 	grid-column: 2;
 }
 
 #Conservatory {
-	/*grid-area: "conservatory";*/
+	
 	background-image: url(../images/conservatory.jpeg);
 	grid-row: 1;
 	grid-column: 3;
@@ -70,31 +62,30 @@ div {
 }
 
 #dining-room {
-	/*grid-area: "dining-room";*/
+	
 	background-image: url(../images/diningroom.jpeg);
 	grid-row: 2 / 3;
 	grid-column: 1;
 	padding-left: 10px;
-	/*height: 300px;*/
-	/*width: 300px;*/
+	
 }
 
 #billiard-room {
-	/*grid-area: "billiard-room";*/
+	
 	background-image: url(../images/billiardroom.jpeg);
 	grid-column: 3;
 	grid-row: 2;
 }
 
 #Library {
-	/*grid-area: "library";*/
+	
 	background-image: url(../images/library.jpeg);
 	grid-column: 3;
 	grid-row: 3;
 }
 
 #Lounge {
-	/*grid-area: "lounge";*/
+	
 	background-image: url(../images/lounge.jpeg);
 	grid-row: 4;
 	grid-column: 1;
@@ -102,7 +93,7 @@ div {
 }
 
 #Hall {
-	/*grid-area: "hall";*/
+	
 	background-image: url(../images/hall.jpeg);
 	grid-row: 4;
 	grid-column: 2;
@@ -110,19 +101,18 @@ div {
 
 
 #Study {
-	/*grid-area: "study";*/
+	
 	background-image: url(../images/study.jpeg);
 	grid-column: 3;
 	grid-row: 4;
 }
 
 #cellar {
-	/*grid-area: "start";*/
+	
 	background-image: url(../images/cellar.jpeg);
 	grid-row: 2 / 3;
 	grid-column: 2 
-	/*height: 300px;*/
-	/*width: 300px;*/
+	
 }
 
 img {
@@ -133,9 +123,8 @@ img {
 }
 
 #cheat-sheet {
+	padding-top: 20px;
 	
-	/*float: right;
-	position: absolute;*/
 }
 
 #counter {
@@ -158,7 +147,6 @@ button {
 	padding: 14px;
 	border: 5px solid #4caf50;
 	border-radius: 6px;
-	/*border-color: #4caf50;*/
 	color:  #4caf50;
 	margin: 10px;
 

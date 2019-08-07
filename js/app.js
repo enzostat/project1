@@ -34,9 +34,10 @@ var fromLibrary = ["billiard-room", "Study", "Library"];
 var fromStudy = ["Library", "Kitchen", "Hall", "Study"];
 var fromHall = ["Lounge", "Study", "Hall"];
 var fromLounge = ["Conservatory", "Hall", "Lounge"];
+var countDown = 10;
 
 var counter = document.getElementById("counter")
-counter.textContent = 10;
+counter.textContent = countDown;
 
 
 
@@ -61,6 +62,7 @@ function startGame() {
 	randomizedMurder();
 	giveClues();
 
+	//gives you options to move the player piece
 	moveOptions();
 
 	//shows the suggestion and accuse options 
@@ -72,7 +74,7 @@ function startGame() {
 	//event listener for accusations
 	document.getElementById("accuse").addEventListener("submit", function(e) {
 		e.preventDefault();
-		// console.log("Accused!");
+		
 		checkAccusation();
 	})
 
@@ -80,8 +82,8 @@ function startGame() {
 	document.getElementById("suggest").addEventListener("submit", function(e) {
 		e.preventDefault();
 		checkSuggestion();
-		
-		// console.log("Suggested!");
+		$("#suggest-div").hide();
+		$("#accuse-div").hide();
 	})
 }
 
@@ -97,7 +99,8 @@ function randomizedMurder(){
 	coin = coinFlip(2);
 	// console.log(coin);
 
-
+	//this determines if I sort the arrays again or not, adding complexity to the randomization
+	//additionally, popping and shifting the correct answers out of the arrays makes verifying the accusations easier
 	if (coin = 0) {
 		correctAnswers.weapon = weapons.pop();
 		correctAnswers.room = rooms.shift();
@@ -111,17 +114,7 @@ function randomizedMurder(){
 		correctAnswers.room = rooms.shift();
 		correctAnswers.suspect = suspects.shift();
 	}
-
-
-	
-
-	//popping the correct answers out of their original arrays
-	//this makes verifying guesses easier 
-	
-
 	// console.log(correctAnswers);
-	
-
 }
 
 //randomizes the array so that .pop doesn't take the same element every time
@@ -137,12 +130,9 @@ function giveClues() {
 	clues.suspects.push(suspects[1]);
 	clues.weapons.push(weapons[0]);
 
+	//prints out clues in clue-div
 	var clueMessage = document.createElement("p");
-	clueMessage.textContent = `${clues.suspects[0]} and ${clues.suspects[1]} are innocent! The murder didn't happen in the ${clues.rooms}. And the ${clues.weapons} wasn't used!`
-
-	console.log(`${clues.suspects[0]} and ${clues.suspects[1]} are innocent!`);
-	console.log(`The murder didn't happen in the ${clues.rooms}`);
-	console.log(`And the ${clues.weapons} wasn't used!`);
+	clueMessage.textContent = `${clues.suspects[0]} and ${clues.suspects[1]} are innocent! The murder didn't happen in the ${clues.rooms}. And the ${clues.weapons} wasn't used!`;
 
 	document.getElementById("clue-div").append (clueMessage);
 }
@@ -153,97 +143,69 @@ function checkAccusation() {
 	var accusedWeapon = document.getElementById("accused-weapon").value;
 	var accusedRoom = document.getElementById("accused-room").value;
 
-	console.log(accusedSuspect, accusedRoom, accusedWeapon);
+	
 
 	if (accusedWeapon == correctAnswers.weapon && accusedSuspect == correctAnswers.suspect && accusedRoom == correctAnswers.room) {
-		
 		winGame();
 	} else {
-		
 		loseGame();
 	}
 }
 
-//when a suggestion is made, another clue is given
+//when a suggestion is made, a clue is given
 function checkSuggestion() {
 	var x = document.getElementById("game-piece").parentNode;
 	var suggestedSuspect = document.getElementById("suggested-suspect").value;
 	var suggestedWeapon = document.getElementById("suggested-weapon").value;
 	// var suggestedRoom = document.getElementById("suggested-room").value;
 	var suggestedRoom = x.textContent;
-	var clueMessage = document.createElement("p")
+	var clueMessage = document.createElement("p");
 	
 	//holds coin flip result
 	//if a player has guessed 0-1 correct elements, randomizes the clue given by the game
 	var coin = 0;
 	
+	//empties the clue div so clues don't pile up
 	$("#clue-div").empty();
 
 	//spits out a clue based on your suggestions
 	if (suggestedWeapon == correctAnswers.weapon && suggestedSuspect == correctAnswers.suspect && suggestedRoom == correctAnswers.room) {
-		console.log("There's not much I can tell you");
-		clueMessage.textContent = "There is not much I can tell you";
-		document.getElementById("clue-div").append(clueMessage);
+		allSuggestionsCorrect();
 	} else if (suggestedWeapon == correctAnswers.weapon && suggestedSuspect == correctAnswers.suspect){
-		console.log(`I can only tell you this: It didn't happen in the ${suggestedRoom}`);
-		clueMessage.textContent = `I can only tell you this: It didn't happen in the ${suggestedRoom}`;
-		document.getElementById("clue-div").append(clueMessage);
+		giveRoomClue(suggestedRoom);
 	} else if (suggestedSuspect == correctAnswers.suspect && suggestedRoom == correctAnswers.room) {
-		console.log(`I can only tell you this: I don't think it was the ${suggestedWeapon}`);
-		clueMessage.textContent = `I can only tell you this: I don't think it was the ${suggestedWeapon}`;
-		document.getElementById("clue-div").append(clueMessage);
+		giveWeaponClue(suggestedWeapon);
 	} else if (suggestedWeapon == correctAnswers.weapon && suggestedRoom == correctAnswers.room) {
-		console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
-		clueMessage.textContent = `I can only tell you this: ${suggestedSuspect} is innocent!`;
-		document.getElementById("clue-div").append(clueMessage);
-
+		giveSuspectClue(suggestedSuspect);
 	} else if (suggestedSuspect == correctAnswers.suspect) {
 		coin = coinFlip(2);
 			if (coin === 1) {
-				console.log(`I can only tell you this: It didn't happen in the ${suggestedRoom}`);
-				clueMessage.textContent = `I can only tell you this: It didn't happen in the ${suggestedRoom}`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveRoomClue(suggestedRoom);
 			} else {
-				console.log(`I can only tell you this: I don't think it was the ${suggestedWeapon}`);
-				clueMessage.textContent = `I can only tell you this: I don't think it was the ${suggestedWeapon}`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveWeaponClue(suggestedWeapon);
 			}
 	} else if (suggestedWeapon == correctAnswers.weapon) {
 		coin = coinFlip(2);
 			if (coin === 1) {
-				// console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
-				clueMessage.textContent = `I can only tell you this: ${suggestedSuspect} is innocent!`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveSuspectClue(suggestedSuspect);
 			} else {
-				// console.log(`I can only tell you this: It didn't happen in the ${suggestedRoom}`);
-				clueMessage.textContent = `I can only tell you this: It didn't happen in the ${suggestedRoom}`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveRoomClue(suggestedRoom);
 			}
 	} else if (suggestedRoom == correctAnswers.room){
 		coin = coinFlip(2);
 		if (coin === 1) {
-				// console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
-				clueMessage.textContent = `I can only tell you this: ${suggestedSuspect} is innocent!`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveSuspectClue(suggestedSuspect);
 			} else {
-				// console.log(`I can only tell you this: I don't think it was the ${suggestedWeapon}`);
-				clueMessage.textContent = `I can only tell you this: I don't think it was the ${suggestedWeapon}`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveWeaponClue(suggestedWeapon);
 			}
 	} else {
 		coin = coinFlip(3);
 		if (coin === 2) {
-				// console.log(`I can only tell you this: ${suggestedSuspect} is innocent!`);
-				clueMessage.textContent = `I can only tell you this: ${suggestedSuspect} is innocent!`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveSuspectClue(suggestedSuspect);
 			} else if (coin === 1) {
-				// console.log(`I can only tell you this: I don't think it was the ${suggestedWeapon}`);
-				clueMessage.textContent = `I can only tell you this: I don't think it was the ${suggestedWeapon}`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveWeaponClue(suggestedWeapon);
 			} else {
-				// console.log(`I can only tell you this: It didn't happen in the ${suggestedRoom}`);
-				clueMessage.textContent = `I can only tell you this: It didn't happen in the ${suggestedRoom}`;
-				document.getElementById("clue-div").append(clueMessage);
+				giveRoomClue(suggestedRoom);
 			}
 			
 	}
@@ -251,11 +213,11 @@ function checkSuggestion() {
 	turnCount++;
 	counter.textContent = changeCounter();
 	
-	// moveOptions();
+	
 
 
 	//if you run out of guesses, you are forced to make an accusation
-	if (turnCount >= 10) {
+	if (turnCount >= countDown) {
 		forceAccusation();
 	} else {
 		console.log(`You have ${10-turnCount} turns left`)
@@ -273,27 +235,25 @@ function coinFlip(max) {
 //you've run out of guesses and now you need to make an accusation
 function forceAccusation() {
 	$("#suggest-div").hide();
+	$("#accuse-div").show();
 }
 
 //if you win the game
 function winGame() {
-	console.log("You're a winner");
 	endGame();
+
+	//text that shows you won
 	var winMessage = document.getElementById("clue-div");
 	winMessage.textContent = "Congratulations! Your detective work really paid off! You solved the mystery!";
 
-
-
-	//text that shows you won
-
-	//maybe a different background
 }
 
 
 //if you lose the game
 function loseGame() {
-	console.log("You're a loser");
 	endGame();
+
+	//text stating you lost with the correct answer printed out
 	var loseMessage = document.getElementById("clue-div");
 	loseMessage.textContent = `I'm sorry, your accusation was incorrect. You failed to solve the mystery, and you will never be invited to a dinner party again. Maybe that's for the best.
 	It was ${correctAnswers.suspect} in the ${correctAnswers.room} with the ${correctAnswers.weapon}.`
@@ -302,8 +262,7 @@ function loseGame() {
 
 //end game function
 function endGame() {
-	console.log("We've reached the end of the game");
-	console.log(correctAnswers);
+	
 
 	//remove all event listeners
 	removeMovementListeners();
@@ -324,84 +283,25 @@ function moveOptions() {
 
 	
 	if (x.id == "cellar") {
-		cellarMoves.forEach(function(element) {
-
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece) //{
-				
-		})
-
-		
+		cellarMoves.forEach(createHighlights)
 	} else if (x.id == "Kitchen") {
-		fromKitchen.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-		
+		fromKitchen.forEach(createHighlights)
 	} else if (x.id == "Ballroom") {
-		fromBallroom.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-		
-		
+		fromBallroom.forEach(createHighlights)
 	} else if (x.id == "Conservatory") {
-		fromConservatory.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-		
-		
+		fromConservatory.forEach(createHighlights)
 	} else if (x.id == "dining-room") {
-		fromDiningRoom.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-		
-		
+		fromDiningRoom.forEach(createHighlights)
 	} else if (x.id == "billiard-room") {
-		fromBilliardRoom.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-		
-		
+		fromBilliardRoom.forEach(createHighlights)
 	} else if (x.id == "Study") {
-		fromStudy.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-	
+		fromStudy.forEach(createHighlights)
 	} else if (x.id == "Hall") {
-		fromHall.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-		
-		
+		fromHall.forEach(createHighlights)
 	} else if (x.id == "Lounge") {
-		fromLounge.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-		
+		fromLounge.forEach(createHighlights)
 	}  else if (x.id == "Library") {
-		fromLibrary.forEach(function(element) {
-			var choice = document.getElementById(element);
-			choice.style.border = "4px solid yellow";
-			document.getElementById(element).addEventListener("click", moveMyPiece)
-		})
-		
-		
+		fromLibrary.forEach(createHighlights)
 	} else {
 		console.log("Get fucked");
 	}
@@ -418,6 +318,8 @@ function movePiece(element) {
 	
 	removeMovementListeners("click", movePiece);
 	changeRoomName();
+	$("#suggest-div").show();
+	$("#accuse-div").show();
 	
 
 }
@@ -463,6 +365,38 @@ function changeCounter(){
 	return 10-turnCount;
 }
 
+function startGameEasy() {
 
+}
+
+function allSuggestionsCorrect() {
+	var clueMessage = document.createElement("p");
+	clueMessage.textContent = "There is not much I can tell you";
+	document.getElementById("clue-div").append(clueMessage);
+}
+
+function giveSuspectClue(suspect){
+	var clueMessage = document.createElement("p");
+	clueMessage.textContent = `I can only tell you this: ${suspect} is innocent!`;
+	document.getElementById("clue-div").append(clueMessage);
+}
+
+function giveWeaponClue(weapon){
+	var clueMessage = document.createElement("p");
+	clueMessage.textContent = `I can only tell you this: I don't think it was the ${weapon}`;
+	document.getElementById("clue-div").append(clueMessage);
+}
+
+function giveRoomClue(room){
+	var clueMessage = document.createElement("p");
+	clueMessage.textContent = `I can only tell you this: It didn't happen in the ${room}`;
+	document.getElementById("clue-div").append(clueMessage);
+}
+
+function createHighlights(element) {
+	var choice = document.getElementById(element);
+	choice.style.border = "4px solid yellow";
+	document.getElementById(element).addEventListener("click", moveMyPiece)
+}
 
 
