@@ -11,20 +11,29 @@ $("#play-again").hide();
 var suspects = ["Miss Scarlet", "Mr. Green", "Colonel Mustard", "Professor Plum", "Mrs. Peacock", "Mrs. White"];
 var weapons = ["Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Monkey Wrench"];
 var rooms = ["Kitchen", "Ballroom", "Conservatory", "Dining Room", "Billiard Room", "Library", "Lounge", "Hall", "Study"];
+
+//empty object created to hold the answers
 var correctAnswers = {
 	suspect: " ",
 	weapon: " ",
 	room: " "
 };
+
+
 var turnCount = 0;
+
+//empty clue object, will hold clues to be shown at the beginning of the game
 var clues = {
 	suspects: [],
 	weapons: [],
 	rooms: []
 }
 
+
+//created in order to remove location listeners
 var allPossibleLocations = ["Kitchen", "Ballroom", "Conservatory", "dining-room", "billiard-room", "Library", "Study", "Hall", "Lounge"];
 
+//when called on, these show the possible moves the player has from their current location
 var cellarMoves = ["dining-room", "billiard-room", "Library"];
 var fromDiningRoom = ["Kitchen", "dining-room"];
 var fromKitchen = ["Ballroom", "dining-room", "Study", "Kitchen"];
@@ -37,14 +46,14 @@ var fromHall = ["Lounge", "Study", "Hall"];
 var fromLounge = ["Conservatory", "Hall", "Lounge"];
 var countDown = 10;
 
+
+//allows the user to see how many moves they have left
 var counter = document.getElementById("counter")
 counter.textContent = countDown;
 
-var accuse_Listener = function () {
-		event.preventDefault();
-		checkAccusation();
-}
 
+
+//function created so that it can be removed in endGame
 var suggest_Listener = function() {
 	event.preventDefault();
 	checkSuggestion();
@@ -550,34 +559,22 @@ function restartGame() {
 
 	document.getElementById("suggest").removeEventListener("submit", suggest_Listener)
 
-	// $('#cheat-sheet input[type="radio":checked]').each(function(){
- //      $(this).prop('checked', false); 
- //  	});
- 	$('input[name=Scarlet]').prop('checked',false);
- 	$('input[name=Green]').prop('checked',false);
- 	$('input[name=Mustard]').prop('checked',false);
- 	$('input[name=Plum]').prop('checked',false);
- 	$('input[name=Peacock]').prop('checked',false);
- 	$('input[name=White]').prop('checked',false);
+	
+	cheatSuspectArray = ["Scarlet", "Green", "Mustard", "Plum", "Peacock", "White"];
+	cheatWeaponArray = ["Candlestick", "Knife", "Wrench", "Revolver", "Rope", "Pipe"];
+	cheatRoomArray = ["Dining", "Kitchen", "Ballroom", "Conservatory", "Billiard", "Library", "Study", "Hall", "Lounge"];
 
 
- 	$('input[name=Dining]').prop('checked',false);
- 	$('input[name=Kitchen]').prop('checked',false);
- 	$('input[name=Ballroom]').prop('checked',false);
- 	$('input[name=Conservatory]').prop('checked',false);
- 	$('input[name=Billiard]').prop('checked',false);
- 	$('input[name=Library]').prop('checked',false);
- 	$('input[name=Study]').prop('checked',false);
- 	$('input[name=Hall]').prop('checked',false);
- 	$('input[name=Lounge]').prop('checked',false);
+	cheatSuspectArray.forEach(function(element){
+		$(`input[name=${element}`).prop('checked',false);
+	});
+	cheatWeaponArray.forEach(function(element){
+		$(`input[name=${element}`).prop('checked',false);
+	});
+	cheatRoomArray.forEach(function(element){
+		$(`input[name=${element}`).prop('checked',false);
+	});
 
-
- 	$('input[name=Candlestick]').prop('checked',false);
- 	$('input[name=Knife]').prop('checked',false);
- 	$('input[name=Wrench]').prop('checked',false);
- 	$('input[name=Revolver]').prop('checked',false);
- 	$('input[name=Rope]').prop('checked',false);
- 	$('input[name=Pipe]').prop('checked',false);
 
   	var returnToStart = document.getElementById("game-piece")
   	document.getElementById("cellar").append(returnToStart);
