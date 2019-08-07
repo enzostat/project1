@@ -50,6 +50,14 @@ document.getElementById("start").addEventListener("click", function(){
 	// console.log("Clicked");
 })
 
+document.getElementById("easy-mode").addEventListener("click", function() {
+	startGameEasy();
+})
+
+document.getElementById("hard-mode").addEventListener("click", function() {
+	startGameHard();
+})
+
 
 
 
@@ -58,9 +66,80 @@ document.getElementById("start").addEventListener("click", function(){
 
 //starts the game
 function startGame() {
-	$("#start").hide();
+	hideStartButtons();
 	randomizedMurder();
 	giveClues();
+
+	//gives you options to move the player piece
+	moveOptions();
+
+	//shows the suggestion and accuse options 
+	// $("#suggest-div").show();
+	// $("#accuse-div").show();
+
+
+
+	//event listener for accusations
+	document.getElementById("accuse").addEventListener("submit", function(e) {
+		e.preventDefault();
+		
+		checkAccusation();
+	})
+
+//event listener for suggestions
+	document.getElementById("suggest").addEventListener("submit", function(e) {
+		e.preventDefault();
+		checkSuggestion();
+		$("#suggest-div").hide();
+		$("#accuse-div").hide();
+	})
+}
+
+function startGameEasy() {
+
+	countDown = 15;
+	counter.textContent = changeCounter();
+	hideStartButtons();
+	randomizedMurder();
+	giveCluesEasy();
+	
+
+	//gives you options to move the player piece
+	moveOptions();
+
+	//shows the suggestion and accuse options 
+	// $("#suggest-div").show();
+	// $("#accuse-div").show();
+
+
+
+	//event listener for accusations
+	document.getElementById("accuse").addEventListener("submit", function(e) {
+		e.preventDefault();
+		
+		checkAccusation();
+	})
+
+//event listener for suggestions
+	document.getElementById("suggest").addEventListener("submit", function(e) {
+		e.preventDefault();
+		checkSuggestion();
+		$("#suggest-div").hide();
+		$("#accuse-div").hide();
+	})
+
+}
+
+function startGameHard() {
+	countDown = 15;
+	counter.textContent = changeCounter();
+	hideStartButtons();
+	randomizedMurder();
+	
+	
+	//print that no clues are given
+	var noClues = document.getElementById("clue-div")
+	noClues.textContent = "You chose to play the hardest difficulty. No initial clues will be provided."
 
 	//gives you options to move the player piece
 	moveOptions();
@@ -129,12 +208,29 @@ function giveClues() {
 	clues.suspects.push(suspects[0]);
 	clues.suspects.push(suspects[1]);
 	clues.weapons.push(weapons[0]);
+	
 
 	//prints out clues in clue-div
 	var clueMessage = document.createElement("p");
 	clueMessage.textContent = `${clues.suspects[0]} and ${clues.suspects[1]} are innocent! The murder didn't happen in the ${clues.rooms}. And the ${clues.weapons} wasn't used!`;
 
-	document.getElementById("clue-div").append (clueMessage);
+	document.getElementById("clue-div").append(clueMessage);
+}
+
+function giveCluesEasy() {
+	clues.rooms.push(rooms[0]);
+	clues.rooms.push(rooms[1]);
+	clues.suspects.push(suspects[0]);
+	clues.suspects.push(suspects[1]);
+	clues.weapons.push(weapons[0]);
+	clues.weapons.push(weapons[1]);
+
+	//prints out clues in clue-div
+	var clueMessage = document.createElement("p");
+	clueMessage.textContent = `${clues.suspects[0]} and ${clues.suspects[1]} are innocent! The murder didn't happen in the ${clues.rooms[0]} or the ${clues.rooms[1]}. And neither the ${clues.weapons[0]} nor the ${clues.weapons[1]} wasn't used!`;
+
+
+	document.getElementById("clue-div").append(clueMessage);
 }
 
 //checks accusation
@@ -268,6 +364,8 @@ function endGame() {
 	removeMovementListeners();
 	revertToNormal();
 
+	$("#accuse-div").hide();
+
 	//empty the div
 	$("#clue-div").empty();
 
@@ -361,42 +459,82 @@ function changeRoomName() {
 	roomName.textContent = x.textContent;
 }
 
+//updates the counter in the gameboard
 function changeCounter(){
-	return 10-turnCount;
+	return countDown-turnCount;
 }
 
-function startGameEasy() {
 
-}
 
+//called when all suggested items are correct. hints that the player should make an accusation
 function allSuggestionsCorrect() {
 	var clueMessage = document.createElement("p");
-	clueMessage.textContent = "There is not much I can tell you";
+	clueMessage.textContent = "There is not much I can tell you. Maybe you're ready to make an accusation...";
 	document.getElementById("clue-div").append(clueMessage);
 }
 
+
+//called to give a clue as to an innocent party
 function giveSuspectClue(suspect){
 	var clueMessage = document.createElement("p");
 	clueMessage.textContent = `I can only tell you this: ${suspect} is innocent!`;
 	document.getElementById("clue-div").append(clueMessage);
 }
 
+
+//called to give a weapon clue
 function giveWeaponClue(weapon){
 	var clueMessage = document.createElement("p");
 	clueMessage.textContent = `I can only tell you this: I don't think it was the ${weapon}`;
 	document.getElementById("clue-div").append(clueMessage);
 }
 
+//called to give a room clue
 function giveRoomClue(room){
 	var clueMessage = document.createElement("p");
 	clueMessage.textContent = `I can only tell you this: It didn't happen in the ${room}`;
 	document.getElementById("clue-div").append(clueMessage);
 }
 
+//creates highlights for moveable options and creates event listeners
 function createHighlights(element) {
 	var choice = document.getElementById(element);
 	choice.style.border = "4px solid yellow";
 	document.getElementById(element).addEventListener("click", moveMyPiece)
 }
 
+
+function restartGame() {
+	suspects = ["Miss Scarlet", "Mr. Green", "Colonel Mustard", "Professor Plum", "Mrs. Peacock", "Mrs. White"];
+	weapons = ["Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Monkey Wrench"];
+	rooms = ["Kitchen", "Ballroom", "Conservatory", "Dining Room", "Billiard Room", "Library", "Lounge", "Hall", "Study"];
+
+	correctAnswers.weapon = " ";
+	correctAnswers.suspect = " ";
+	correctAnswers.room = " ";
+	turnCount = 0;
+
+	clues = {
+	suspects: [],
+	weapons: [],
+	rooms: []
+	}
+
+	$("#clue-div").empty();
+	$("#start").show();
+
+	$('#cheat-sheet input[type="radio":checked]').each(function(){
+      $(this).prop('checked', false); 
+  	});
+
+  	var returnToStart = document.getElementById("game-piece")
+  	document.getElementById("cellar").append(returnToStart);
+
+}
+
+function hideStartButtons() {
+	$("#start").hide();
+	$("#easy-mode").hide();
+	$("#hard-mode").hide();
+}
 
